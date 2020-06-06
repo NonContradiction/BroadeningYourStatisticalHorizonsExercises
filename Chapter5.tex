@@ -1,0 +1,267 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\begin{document}
+
+\title{Chapter 5 Exercises}
+\author{Noah Diekemper}
+\date{\today}
+\maketitle
+
+\section{Exercise 1 (a): Binary Distribution}
+
+Using the properties of logarithms, we may express the binary distribution thus: 
+
+$$p(y) = e^{y\log (p) + (1-y)\log(1-p)}$$
+$$p(y) = e^{y\log (p) + (1)\log(1-p) - (y)\log(1-p)}$$
+$$p(y) = e^{(1)\log(1-p) + y(\log (p) - \log(1-p))}$$
+
+We recognize the expanded form of the logit function here: 
+
+$$p(y) = e^{(1)\log(1-p) + y(\text{logit}(p))}$$
+$$p(y) = e^{y\text{logit}(p) + \log(1-p)}$$
+
+This is the one parameter exponential form. We recognize the canonical link $\b(\theta)$ as $\text{logit}(p)$.
+
+This is the sort of random variable we would use if we were studying multi-point inspections, where a single failure would prohibit a certification from being granted. 
+
+\newpage
+
+We next derive $\mu$ and $\sigma^{2}$.
+
+$$\mu = - \frac{c'(\theta)}{b'(\theta)}$$
+$$\mu = - \frac{\log'(1-p)}{\text{logit}'(p)}$$
+
+$$\mu = - \frac{-\frac{1}{1-p}}{\log(p) - \log(1-p) /dp}$$
+$$\mu = - \frac{-\frac{1}{1-p}}{\frac{1}{p} + \frac{1}{1-p} }$$
+$$\mu = - \frac{-\frac{1}{1-p}}{\frac{1 - p + p}{(p)(1-p)}}$$
+$$\mu =  \frac{(p)(1-p)}{(1-p)}$$
+$$\mu =  p$$
+
+$$\sigma^{2} = \frac{b''(\theta)c'(\theta) - c''(\theta)b'(\theta)}{[b'(\theta)]^{3}}$$
+$$\sigma^{2} = \frac{(\frac{-1}{p^2} + \frac{1}{(1-p)^2})(\frac{-1}{(1-p)}) - \frac{-1}{(1-p)^2}(\frac{1}{p} + \frac{1}{(1-p)})}{[\frac{1}{(p)(1-p)}]^{3}}$$
+$$\sigma^{2} = \frac{(\frac{(1-p)^{2} - p^{2}}{p^2(1-p)^{3}}) + \frac{1}{(1-p)^2}(\frac{1-p+p}{(p)(1-p)})}{[\frac{1}{(p)(1-p)}]^{3}}$$
+$$\sigma^{2} = \frac{\frac{(1-p)^2-p^2+p}{(p)^2(1-p)^3}}{[\frac{1}{(p)(1-p)}]^{3}}$$
+$$\sigma^{2} = (1-2p+p^2-p^2+p)p$$
+$$\sigma^{2} = (1-p)p$$
+
+Which is what we expect. 
+
+
+\section{Exercise 1 (b): Binomial Distribution}
+
+We derive the one parameter exponential form of the binomial distribution, for fixed $n$: 
+
+$$p(y) = {n \choose y} p^{y} (1-p)^{n-y} $$
+$$p(y) = e^{\log(\frac{n!}{y! (n-y)!}) + y \log(p) + (n-y)\log(1-p)} $$
+$$p(y) = e^{\log(\frac{n!}{y! (n-y)!}) + y \log(p) - (y)\log(1-p)+ (n)\log(1-p)} $$
+$$p(y) = e^{\log(\frac{n!}{y! (n-y)!}) + y \text{logit}(p) + (n)\log(1-p)} $$
+$$p(y) = e^{y \text{logit}(p) + (n)\log(1-p) + \log(\frac{n!}{y! (n-y)!}) } $$
+
+We see that again $\text{logit}(p)$ is the canonical link function in this family, which we would use to model, for example, the exact number of times that $4$ comes up in some fixed $n$-many rolls of a die.
+
+\newpage
+
+We next derive $\mu$ and $\sigma^{2}$ for the binomial distribution.
+
+$$\mu = - \frac{c'(\theta)}{b'(\theta)}$$
+$$\mu = - \frac{n\log'(1-p)}{\text{logit}'(p)}$$
+
+$$\mu = - \frac{\frac{-n}{1-p}}{\log(p) - \log(1-p) /dp}$$
+$$\mu = - \frac{\frac{-n}{1-p}}{\frac{1}{p} + \frac{1}{1-p} }$$
+$$\mu =  \frac{\frac{n}{1-p}}{\frac{1 - p + p}{(p)(1-p)}}$$
+$$\mu =  \frac{(n)(p)(1-p)}{(1-p)}$$
+$$\mu =  np$$
+
+$$\sigma^{2} = \frac{b''(\theta)c'(\theta) - c''(\theta)b'(\theta)}{[b'(\theta)]^{3}}$$
+$$\sigma^{2} = \frac{(\frac{-1}{p^2} + \frac{1}{(1-p)^2})(\frac{-n}{(1-p)}) - \frac{-n}{(1-p)^2}(\frac{1}{p} + \frac{1}{(1-p)})}{[\frac{1}{(p)(1-p)}]^{3}}$$
+$$\sigma^{2} = \frac{n(\frac{(1-p)^{2} - p^{2}}{p^2(1-p)^{3}}) + \frac{n}{(1-p)^2}(\frac{1-p+p}{(p)(1-p)})}{[\frac{1}{(p)(1-p)}]^{3}}$$
+$$\sigma^{2} = n*\frac{\frac{(1-p)^2-p^2+p}{(p)^2(1-p)^3}}{[\frac{1}{(p)(1-p)}]^{3}}$$
+$$\sigma^{2} = n(1-2p+p^2-p^2+p)p$$
+$$\sigma^{2} = n(1-p)p$$
+
+
+\newpage
+\section{Exercise 1 (c): Poisson Distribution}
+
+We derive the one parameter exponential form of the poisson distribution: 
+
+$$P(Y=y) = \frac{e^{-\lambda}\lambda^{y}}{y!} $$
+$$P(Y=y) = e^{-\lambda + y\log(\lambda) - \log(y!)} $$
+$$P(Y=y) = e^{y\log(\lambda) - \lambda - \log(y!)} $$
+
+
+We recognize $\log(\lambda)$ as the canonical link function in this family, which we would use to model, for example, the number of typoes that appear on one page of some transcription.
+
+\newpage
+
+We next derive $\mu$ and $\sigma^{2}$ for the poisson distribution.
+
+$$\mu = - \frac{c'(\theta)}{b'(\theta)}$$
+$$\mu = - \frac{-1}{\frac{1}{\lambda}}$$
+$$\mu = \lambda$$
+
+$$\sigma^{2} = \frac{b''(\theta)c'(\theta) - c''(\theta)b'(\theta)}{[b'(\theta)]^{3}}$$
+$$\sigma^{2} = \frac{\frac{-1}{\lambda^{2}} (-1) - 0*b'(\theta)}{\frac{1}{\lambda}^{3}}$$
+$$\sigma^{2} = \frac{\lambda^{3}}{\lambda^{2}}$$
+$$\sigma^{2} = \lambda$$
+
+Both of these results conform with our knowledge of the properties of a Poisson distribution.
+
+\newpage
+
+\section{Exercise 1 (d): Normal -- with fixed $\sigma$}
+
+We now express the Normal distribution: 
+
+$$f(y;\mu) = \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{- \frac{(y-\mu)^{2}}{(2\sigma^{2})}}$$
+
+Assuming, without loss of generality, that $\sigma = 1$, we have: 
+
+$$f(y;\mu) \propto e^{- \frac{(y-\mu)^{2}}{(2)}}$$
+$$f(y;\mu) \propto e^{- \frac{(y^2-2y\mu+\mu^2)}{(2)}}$$
+$$f(y;\mu) \propto e^{(y\mu - \frac{1}{2}\mu^2 - \frac{1}{2}y^2)}$$
+
+The canonical link is just $\mu$. By virtue of the central limit theorem, we can use this in the event of modeling any sum of a sample of independent and identically distributed random variables, specifically where the variance is known. 
+\newpage
+
+We next derive $\mu$ and $\sigma^{2}$ for the Poisson distribution.
+
+$$\mu = - \frac{c'(\theta)}{b'(\theta)}$$
+$$\mu = - \frac{-\mu}{1}$$
+$$\mu = \mu$$
+
+Of course this result is correct. 
+
+$$\sigma^{2} = \frac{b''(\theta)c'(\theta) - c''(\theta)b'(\theta)}{[b'(\theta)]^{3}}$$
+$$\sigma^{2} = \frac{0*\-mu - (1)(-1)}{(1)^{3}}$$
+$$\sigma^{2} = 1$$
+
+. . . which is what we fixed $\sigma^{2}$ to previously.
+
+\newpage
+\section{Exercise 1 (e): Normal -- with fixed $\mu$}
+
+This time we fix the Normal distribution's $\mu = 0$ (without loss of generality): 
+
+$$f(y;\sigma) = \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{- \frac{(y-\mu)^{2}}{(2\sigma^{2})}}$$
+$$f(y;\sigma) \propto e^{[-\log(\sigma) - \frac{\log(2\pi)}{2} - \frac{(y-0)^{2}}{(2\sigma^{2})}]}$$
+$$f(y;\sigma) \propto e^{[-\log(\sigma) - \frac{(y)^{2}}{(2\sigma^{2})}]}$$
+$$f(y;\sigma) \propto e^{[- \frac{(y)^{2}}{(2\sigma^{2})} -\log(\sigma)]}$$
+
+The canonical link is $-\frac{1}{2\sigma^{2}}$. As above, we can use this in the event of modeling any sum of a sample of independent and identically distributed random variables, specifically ones with a known mean. 
+
+We skip the rest of this sub-part.
+
+\newpage
+\section{Exercise 1 (f): Exponential}
+
+We examine the exponential distribution: 
+
+$$f(y) = \lambda e^{-\lambda y}$$
+$$f(y) = e^{\log(\lambda) + -\lambda y}$$
+$$f(y) = e^{-\lambda y + \log(\lambda)}$$
+
+We identify $-\lambda$ as the canonical link function. This would be useful if someone were modeling, say, how much of a page from the top onward is free from typoes.
+
+\newpage
+
+We solve for $\mu$: 
+
+$$\mu = - \frac{c'(\theta)}{b'(\theta)}$$
+$$\mu = - \frac{\frac{1}{\lambda}}{-1}$$
+$$\mu = \frac{1}{\lambda}$$
+
+Which is what we know it to be. Next we solve for $\sigma^{2}$: 
+
+$$\sigma^{2} = \frac{b''(\theta)c'(\theta) - c''(\theta)b'(\theta)}{[b'(\theta)]^{3}}$$
+$$\sigma^{2} = \frac{0 - \frac{-1}{\lambda^{2}}(-1)}{[-1]^{3}}$$
+$$\sigma^{2} = \frac{0 - \frac{1}{\lambda^{2}}}{(-1)}$$
+$$\sigma^{2} = \frac{1}{\lambda^{2}}$$
+
+Which is right. 
+
+\newpage
+\section{Exercise 1 (g): Gamma (with fixed $r$)}
+
+We examine the Gamma distribution, treating $r$ as a fixed constant: 
+
+$$f(y; \lambda) = \frac{\lambda^{r}}{\Gamma(r)} y^{r-1} e^{-\lambda y}$$
+$$f(y; \lambda) = e^{-\lambda y + r\log(\lambda) + (r-1)\log(y) - \log(\Gamma(r))}$$
+$$f(y; \lambda) \propto e^{-\lambda y + r\log(\lambda) + (r-1)\log(y)}$$
+
+We identify $-\lambda$ as (again) the canonical link function. This would be useful if someone were modeling, say, how many pages need to be scanned before the $r^{\text{th}}$ typo.
+
+\newpage
+
+We solve for $\mu$: 
+
+$$\mu = - \frac{c'(\theta)}{b'(\theta)}$$
+$$\mu = - \frac{\frac{r}{\lambda}}{-1}$$
+$$\mu = \frac{r}{\lambda}$$
+
+Which is what we know it to be. Next we solve for $\sigma^{2}$: 
+
+$$\sigma^{2} = \frac{b''(\theta)c'(\theta) - c''(\theta)b'(\theta)}{[b'(\theta)]^{3}}$$
+$$\sigma^{2} = \frac{0 - \frac{-r}{\lambda^{2}}(-1)}{[-1]^{3}}$$
+$$\sigma^{2} = \frac{0 - \frac{r}{\lambda^{2}}}{(-1)}$$
+$$\sigma^{2} = \frac{r}{\lambda^{2}}$$
+
+Which is right. 
+
+\newpage
+\section{Exercise 1 (h): Geometric}
+
+We examine the Geometric distribution, treating $r$ as a fixed constant: 
+
+$$p(y) = (1-p)^{y}p$$
+$$p(y) = e^{\log(p) + y\log(1-p)}$$
+$$p(y) = e^{y\log(1-p) + \log(p)}$$
+
+We identify $\log(1-p)$ as the canonical link function. This would be useful if someone were modeling, say, how many satellites countries need to launch before one succeeded in orbit.
+
+\newpage
+
+We solve for $\mu$: 
+
+$$\mu = - \frac{c'(\theta)}{b'(\theta)}$$
+$$\mu = - \frac{\frac{1}{p}}{\frac{-1}{(1-p)}}$$
+$$\mu = \frac{(1-p)}{p}$$
+
+Which is what we know it to be. Next we solve for $\sigma^{2}$: 
+
+$$\sigma^{2} = \frac{b''(\theta)c'(\theta) - c''(\theta)b'(\theta)}{[b'(\theta)]^{3}}$$
+$$\sigma^{2} = \frac{\frac{-1}{(1-p)^2}\frac{1}{p} - \frac{-1}{p^2} \frac{-1}{(1-p)}}{[\frac{-1}{1-p}]^{3}}$$
+$$\sigma^{2} = \frac{\frac{-1}{(1-p)^2p} - \frac{1}{p^2(1-p)}}{[\frac{-1}{1-p}]^{3}}$$
+$$\sigma^{2} = \left( \frac{-p}{(1-p)^2p} - \frac{(1-p}{p^2(1-p)}\right) * \frac{(1-p)^{3}}{-1}$$
+$$\sigma^{2} = \left( \frac{-p-1+p}{(1-p)^2p^2}\right) * \frac{(1-p)^{3}}{-1}$$
+$$\sigma^{2} = \left( \frac{1}{(1-p)^2p^2}\right) * (1-p)^{3}$$
+$$\sigma^{2} = \frac{(1-p)}{p^2}$$
+
+Which is right. 
+
+\newpage
+\section{Exercise 1 (i): Negative Binomial (with fixed $r$)}
+
+We examine the Geometric distribution, treating $r$ as a fixed constant: 
+
+$$p(y; p) = \frac{\Gamma(y+r)}{\Gamma(r)y!}(1-p)^yp^r$$
+$$p(y; p) = e^{r\log(p) + y\log(1-p) + \log(\Gamma(y+r)) - \log(\Gamma(r)) - \log(y!)}$$
+$$p(y; p) \propto e^{y\log(1-p) + r\log(p) + \log(\frac{\Gamma(y+r)}{\log(y!)})}$$
+
+We again identify $\log(1-p)$ as the canonical link function. This would be useful if someone were modeling, say, how many satellites countries need to launch before the success of satellite number $r$ in orbit.
+
+\newpage
+
+We solve for $\mu$: 
+
+$$\mu = - \frac{c'(\theta)}{b'(\theta)}$$
+$$\mu = - \frac{\frac{r}{p}}{\frac{-1}{(1-p)}}$$
+$$\mu = \frac{r(1-p)}{p}$$
+
+Which is what we know it to be. As per the instructions, we skip solving for $\sigma^{2}$.
+
+
+\end{document}
